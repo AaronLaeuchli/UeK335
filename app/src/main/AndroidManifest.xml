@@ -10,6 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BuyIt">
         <activity
+            android:name=".activities.StoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ShoppingCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ProductActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".services.StoreService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.ShoppingCartService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.ProductService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

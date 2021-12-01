@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import ch.zli.aal.buyit.R;
+
 public class StoreActivity extends AppCompatActivity {
 
     @Override
