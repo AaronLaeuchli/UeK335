@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,14 +15,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ch.zli.aal.buyit.R;
+import ch.zli.aal.buyit.model.Product;
+import ch.zli.aal.buyit.model.Store;
 
 public class ProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private String selectedStore;
-    private String selectedPrduct;
+    private Store selectedStore;
+    private Product selectedPrduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,33 +37,21 @@ public class ProductActivity extends AppCompatActivity implements AdapterView.On
         Button btnPicture = (Button) findViewById(R.id.btnPicture);
         EditText editProduct = (EditText) findViewById(R.id.editProduct);
 
-        List<String> categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        List<Store> stores = new ArrayList<Store>();
+        stores.add(new Store("Migros"));
+        stores.add(new Store("Aldi"));
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
-        // Drop down layout style - list view with radio button
+        ArrayAdapter<Store> dataAdapter = new ArrayAdapter<Store>(this, android.R.layout.simple_spinner_item, stores);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
 
+
         btnAddToList.setOnClickListener(v -> {
+            Product product = createProduct((Store) spinner.getSelectedItem(), editProduct.getText().toString());
             Intent intent = new Intent (this, ShoppingCartActivity.class);
-            selectedStore = (String) spinner.getSelectedItem();
-            selectedPrduct = (String) editProduct.getText().toString();
-                intent.putExtra("store", selectedStore);
-                intent.putExtra("product", selectedStore);
-
-
+                intent.putExtra("product", product);
             startActivity(intent);
-
         });
 
         btnPicture.setOnClickListener(v -> {
@@ -67,6 +59,11 @@ public class ProductActivity extends AppCompatActivity implements AdapterView.On
         });
 
 
+    }
+
+
+    private Product createProduct(Store selectedStore, String productName){
+        return new Product(productName, selectedStore);
     }
 
     @Override
