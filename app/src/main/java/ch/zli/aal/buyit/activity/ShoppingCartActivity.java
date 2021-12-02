@@ -37,7 +37,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_cart);
 
         ImageButton btnAddProduct = (ImageButton) findViewById(R.id.btnAddProduct);
-        ImageButton btnAddPicture = (ImageButton) findViewById(R.id.btnAddPicture);
+        //ImageButton btnAddPicture = (ImageButton) findViewById(R.id.btnAddPicture);
         TabLayout tl = findViewById(R.id.tabLayout);
 
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -48,11 +48,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }.getType());
 
         for (Store store : mStoreList) {
-            TabLayout.Tab tab = new TabLayout.Tab();
             String storeName = store.getStoreName();
-            tab.setText(storeName);
-            tab.setTag(store);
-            tl.addTab(tab);
+            tl.addTab(tl.newTab().setText(storeName).setTag(store));
         }
 
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -71,6 +68,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
         mAdapter = new ProductListAdapter(this, new ArrayList<>());
         ListView lv = findViewById(R.id.productListView);
         lv.setAdapter(mAdapter);
