@@ -4,18 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import ch.zli.aal.buyit.R;
@@ -24,7 +21,7 @@ import ch.zli.aal.buyit.model.Store;
 
 public class ProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private Store selectedStore;
+    private ArrayList<String> storeList;
     private Product selectedPrduct;
 
     @Override
@@ -33,13 +30,18 @@ public class ProductActivity extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_product);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        Button btnAddToList = (Button)findViewById(R.id.btnAddToList);
+        Button btnAddToList = (Button)findViewById(R.id.btnAddStoreToList);
         Button btnPicture = (Button) findViewById(R.id.btnPicture);
-        EditText editProduct = (EditText) findViewById(R.id.editProduct);
+        EditText editProduct = (EditText) findViewById(R.id.editStore);
 
+        Intent i = getIntent();
+        storeList = i.getStringArrayListExtra("stores");
         List<Store> stores = new ArrayList<Store>();
-        stores.add(new Store("Migros"));
-        stores.add(new Store("Aldi"));
+        for (String s:storeList
+             ) {
+            System.out.println(s);
+            stores.add(new Store(s));
+        }
 
 
         ArrayAdapter<Store> dataAdapter = new ArrayAdapter<Store>(this, android.R.layout.simple_spinner_item, stores);

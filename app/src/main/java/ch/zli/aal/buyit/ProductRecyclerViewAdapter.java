@@ -13,14 +13,14 @@ import java.util.List;
 
 import ch.zli.aal.buyit.model.Product;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
 
     private List<Product> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public MyRecyclerViewAdapter(Context context, ArrayList<Product> data) {
+    public ProductRecyclerViewAdapter(Context context, ArrayList<Product> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

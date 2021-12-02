@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="343dp"
+        android:layout_height="634dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="39dp" />
+            android:layout_height="10dp" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -54,10 +54,14 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="27dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProducts"
             android:layout_width="match_parent"
-            android:layout_height="527dp" />
+            android:layout_height="460dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

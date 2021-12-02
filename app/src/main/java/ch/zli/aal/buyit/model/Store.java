@@ -1,9 +1,10 @@
 package ch.zli.aal.buyit.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Store implements Parcelable {
+import java.io.Serializable;
+
+public class Store implements Serializable {
 
     private String storeName;
 
@@ -19,17 +20,7 @@ public class Store implements Parcelable {
         storeName = in.readString();
     }
 
-    public static final Creator<Store> CREATOR = new Creator<Store>() {
-        @Override
-        public Store createFromParcel(Parcel in) {
-            return new Store(in);
-        }
 
-        @Override
-        public Store[] newArray(int size) {
-            return new Store[size];
-        }
-    };
 
     public String getStoreName() {
         return storeName;
@@ -44,13 +35,5 @@ public class Store implements Parcelable {
         return storeName;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(storeName);
-    }
 }

@@ -1,2 +1,7 @@
-package ch.zli.aal.buyit.model;public class ShoppingCart {
+package ch.zli.aal.buyit.model;
+
+public class ShoppingCart {
+
+
+
 }

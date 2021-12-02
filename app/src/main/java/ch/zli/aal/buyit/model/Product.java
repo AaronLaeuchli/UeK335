@@ -1,9 +1,8 @@
 package ch.zli.aal.buyit.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
-public class Product implements Parcelable {
+public class Product implements Serializable {
 
     private String productName;
     private Store storeName;
@@ -34,36 +33,5 @@ public class Product implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.productName);
-        dest.writeParcelable(this.storeName, flags);
-    }
-
-    public void readFromParcel(Parcel source) {
-        this.productName = source.readString();
-        this.storeName = source.readParcelable(Store.class.getClassLoader());
-    }
-
-    protected Product(Parcel in) {
-        this.productName = in.readString();
-        this.storeName = in.readParcelable(Store.class.getClassLoader());
-    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel source) {
-            return new Product(source);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
 }

@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editProduct"
+                android:id="@+id/editStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Product Name" />
@@ -55,7 +55,7 @@
             android:layout_height="101dp" />
 
         <Button
-            android:id="@+id/btnAddToList"
+            android:id="@+id/btnAddStoreToList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add to List" />
