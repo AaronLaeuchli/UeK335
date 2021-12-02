@@ -2,22 +2,23 @@ package ch.zli.aal.buyit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.VibrationEffect;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,18 +32,16 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hudomju.swipe.SwipeToDismissTouchListener;
-import com.hudomju.swipe.adapter.ListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.zli.aal.buyit.MainActivity;
 import ch.zli.aal.buyit.R;
 import ch.zli.aal.buyit.adapter.StoreListAdapter;
 import ch.zli.aal.buyit.model.Store;
-import ch.zli.aal.buyit.services.ShoppingCartService;
 import ch.zli.aal.buyit.services.StoreService;
+
+import android.os.Vibrator;
 
 public class StoreActivity extends AppCompatActivity {
 
@@ -55,7 +54,7 @@ public class StoreActivity extends AppCompatActivity {
     private ArrayList<String> mArrayList=new ArrayList<>();
     private ListDataAdapter mListDataAdapter;
 
-    StoreService storeService;
+    //StoreService storeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,6 +246,7 @@ public class StoreActivity extends AppCompatActivity {
 
     }
 
+    /*
     private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -273,5 +273,19 @@ public class StoreActivity extends AppCompatActivity {
         super.onStop();
         unbindService(connection);
     }
+
+*/
+
+
+
+    //Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+    //} else {
+        //v.vibrate(500);
+    //}
+
+
+
 
 }

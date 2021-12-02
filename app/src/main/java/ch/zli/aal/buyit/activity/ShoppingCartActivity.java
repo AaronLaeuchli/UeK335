@@ -36,7 +36,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private ProductListAdapter mAdapter;
     private List<Product> showProducts;
 
-    ShoppingCartService shoppingCartService;
+    //private ShoppingCartService shoppingCartService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +53,27 @@ public class ShoppingCartActivity extends AppCompatActivity {
         mStoreList = gson.fromJson(json, new TypeToken<List<Store>>() {
         }.getType());
 
+        if (!mStoreList.isEmpty()) {
+            showProducts = mStoreList.get(0).getProducts();
+        }
+        else {
+            showProducts = new ArrayList<>();
+        }
+
+        mAdapter = new ProductListAdapter(this, showProducts);
+        ListView lv = findViewById(R.id.productListView);
+        lv.setAdapter(mAdapter);
+
         for (Store store : mStoreList) {
-            String storeName = store.getStoreName();
-            tl.addTab(tl.newTab().setText(storeName).setTag(store));
+            tl.addTab(tl.newTab().setText(store.getStoreName()).setTag(store));
         }
 
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Store store = (Store) tab.getTag();
-                assert store != null;
-                showProducts = store.getProducts();
+                showProducts.clear();
+                showProducts.addAll(store.getProducts());
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -76,14 +86,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
         });
 
-        if(showProducts != null){
-            mAdapter = new ProductListAdapter(this, showProducts);
-            ListView lv = findViewById(R.id.productListView);
-            lv.setAdapter(mAdapter);
-        }
-
-
-
         //Objects.requireNonNull(tl.getTabAt(0)).select();
 
         btnAddProduct.setOnClickListener(v -> {
@@ -92,7 +94,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
     }
 
+    
 
+/*
     private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -119,4 +123,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onStop();
         unbindService(connection);
     }
+
+ */
 }

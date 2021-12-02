@@ -38,7 +38,7 @@ public class ProductActivity extends AppCompatActivity {
     public static final String STORE_LIST = "STORE_LIST";
     private SharedPreferences mPref;
     private List<Store> mStoreList;
-    ProductService productService;
+    //ProductService productService;
 
 
     @Override
@@ -106,6 +106,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 */}
 
+/*
     private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -132,5 +133,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onStop();
         unbindService(connection);
     }
+
+ */
 
 }
