@@ -71,8 +71,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Store store = (Store) tab.getTag();
                 showProducts.clear();
+                Store store = (Store) tab.getTag();
                 showProducts.addAll(store.getProducts());
                 mAdapter.notifyDataSetChanged();
             }
@@ -86,15 +86,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
         });
 
-        //Objects.requireNonNull(tl.getTabAt(0)).select();
-
         btnAddProduct.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
             startActivity(intent);
         });
     }
 
-    
+
 
 /*
     private final ServiceConnection connection = new ServiceConnection() {
