@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Buy It"
+            android:text="@string/buy_it"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Shopping Cart" />
+                android:text="@string/shopping_cart" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Manage Stores" />
+                android:text="@string/manage_stores" />
         </TableRow>
 
 

@@ -1,10 +1,14 @@
 package ch.zli.aal.buyit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +19,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.permissionx.guolindev.PermissionX;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,6 +35,7 @@ import java.util.stream.Collectors;
 import ch.zli.aal.buyit.R;
 import ch.zli.aal.buyit.model.Product;
 import ch.zli.aal.buyit.model.Store;
+
 
 public class ProductFormActivity extends AppCompatActivity {
 
@@ -81,7 +88,7 @@ public class ProductFormActivity extends AppCompatActivity {
         });
 
         btnPicture.setOnClickListener(v -> {
-            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             String txt = editProduct.getText().toString();
             SharedPreferences.Editor prefsEditor = mPref.edit();
             prefsEditor.putString(PRODUCT_NAME, txt);

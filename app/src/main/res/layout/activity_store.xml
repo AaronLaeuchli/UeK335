@@ -23,7 +23,7 @@
             android:layout_height="58dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="128dp"
-            android:text="Add Store"
+            android:text="@string/add_store"
             android:textAlignment="center" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -35,7 +35,7 @@
                 android:id="@+id/editStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Store Name" />
+                android:hint="@string/store_name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Spinner Element -->
@@ -49,7 +49,7 @@
             android:id="@+id/btnAddStoreToList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to List" />
+            android:text="@string/add_to_list" />
 
         <Space
             android:layout_width="match_parent"

@@ -52,12 +52,6 @@
                 android:layout_height="17dp"
                 android:layout_weight="1" />
 
-            <ImageButton
-                android:id="@+id/btnAddPicture"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                app:srcCompat="@drawable/addpicture_foreground" />
-
         </LinearLayout>
 
         <Space
