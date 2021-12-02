@@ -2,13 +2,12 @@ package ch.zli.aal.buyit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -18,25 +17,20 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import ch.zli.aal.buyit.R;
 import ch.zli.aal.buyit.adapter.ProductListAdapter;
-import ch.zli.aal.buyit.adapter.StoreListAdapter;
 import ch.zli.aal.buyit.model.Product;
 import ch.zli.aal.buyit.model.Store;
-import ch.zli.aal.buyit.services.ProductService;
-import ch.zli.aal.buyit.services.ShoppingCartService;
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
     public static final String STORE_LIST = "STORE_LIST";
+    public static final String PRODUCT = "PRODUCT";
     private SharedPreferences mPref;
     private List<Store> mStoreList;
     private ProductListAdapter mAdapter;
-    private List<Product> showProducts;
-
-    //private ShoppingCartService shoppingCartService;
+    private List<Product> showProducts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +47,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         mStoreList = gson.fromJson(json, new TypeToken<List<Store>>() {
         }.getType());
 
-        if (!mStoreList.isEmpty()) {
-            showProducts = mStoreList.get(0).getProducts();
-        }
-        else {
-            showProducts = new ArrayList<>();
-        }
-
         mAdapter = new ProductListAdapter(this, showProducts);
         ListView lv = findViewById(R.id.productListView);
         lv.setAdapter(mAdapter);
@@ -68,11 +55,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
             tl.addTab(tl.newTab().setText(store.getStoreName()).setTag(store));
         }
 
+        if (!mStoreList.isEmpty()) {
+            showProducts.addAll(mStoreList.get(0).getProducts());
+        }
+
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                showProducts.clear();
                 Store store = (Store) tab.getTag();
+                showProducts.clear();
                 showProducts.addAll(store.getProducts());
                 mAdapter.notifyDataSetChanged();
             }
@@ -87,12 +78,21 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
 
         btnAddProduct.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ProductFormActivity.class);
             startActivity(intent);
         });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product product = mAdapter.getItem(position);
+                Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
+                intent.putExtra(PRODUCT, product);
+                startActivity(intent);
+            }
+        });
     }
-
-
+}
 
 /*
     private final ServiceConnection connection = new ServiceConnection() {
@@ -123,4 +123,3 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
  */
-}
