@@ -17,11 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.zli.aal.buyit.R;
-import ch.zli.aal.buyit.StoreRecyclerViewAdapter;
 import ch.zli.aal.buyit.adapter.StoreListAdapter;
 import ch.zli.aal.buyit.model.Store;
 
-public class StoreActivity extends AppCompatActivity implements StoreRecyclerViewAdapter.ItemClickListener{
+public class StoreActivity extends AppCompatActivity {
 
     public static final String STORE_LIST = "STORE_LIST";
     private SharedPreferences mPref;
@@ -55,13 +54,5 @@ public class StoreActivity extends AppCompatActivity implements StoreRecyclerVie
         });
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
 
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

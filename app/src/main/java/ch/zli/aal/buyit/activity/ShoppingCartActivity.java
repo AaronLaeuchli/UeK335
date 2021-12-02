@@ -37,7 +37,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_cart);
 
         ImageButton btnAddProduct = (ImageButton) findViewById(R.id.btnAddProduct);
-        //ImageButton btnAddPicture = (ImageButton) findViewById(R.id.btnAddPicture);
         TabLayout tl = findViewById(R.id.tabLayout);
 
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -56,6 +55,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Store store = (Store) tab.getTag();
+                assert store != null;
                 showProducts = store.getProducts();
                 mAdapter.notifyDataSetChanged();
             }
@@ -69,10 +69,15 @@ public class ShoppingCartActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter = new ProductListAdapter(this, new ArrayList<>());
-        ListView lv = findViewById(R.id.productListView);
-        lv.setAdapter(mAdapter);
-        Objects.requireNonNull(tl.getTabAt(0)).select();
+        if(showProducts != null){
+            mAdapter = new ProductListAdapter(this, showProducts);
+            ListView lv = findViewById(R.id.productListView);
+            lv.setAdapter(mAdapter);
+        }
+
+
+
+        //Objects.requireNonNull(tl.getTabAt(0)).select();
 
         btnAddProduct.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), ProductActivity.class);

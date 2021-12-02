@@ -14,8 +14,8 @@ import ch.zli.aal.buyit.model.Product;
 import ch.zli.aal.buyit.model.Store;
 
 public class ProductListAdapter extends ArrayAdapter<Product> {
-    public ProductListAdapter(Context context, List<Product> stores) {
-        super(context, 0, stores);
+    public ProductListAdapter(Context context, List<Product> products) {
+        super(context, 0, products);
     }
 
     @Override

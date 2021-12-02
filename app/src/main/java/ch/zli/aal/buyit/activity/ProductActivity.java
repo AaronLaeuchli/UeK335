@@ -2,10 +2,13 @@ package ch.zli.aal.buyit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +17,9 @@ import android.widget.Spinner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +41,7 @@ public class ProductActivity extends AppCompatActivity {
 
         Button btnAddToList = (Button)findViewById(R.id.btnAddStoreToList);
         EditText editProduct = (EditText) findViewById(R.id.editStore);
-        // Button btnPicture = (Button) findViewById(R.id.btnPicture);
+        Button btnPicture = (Button) findViewById(R.id.btnPicture);
 
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -64,5 +69,34 @@ public class ProductActivity extends AppCompatActivity {
             Intent intent = new Intent (this, ShoppingCartActivity.class);
             startActivity(intent);
         });
+
+
+/*
+        btnPicture.setOnClickListener(v -> {
+            public void add(View view) {
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CAMERA_REQUEST);
+            }
+
+            @SuppressLint("SimpleDateFormat")
+            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                super.onActivityResult(requestCode, resultCode, data);
+                if (requestCode == CAMERA_REQUEST) {
+                    SimpleDateFormat formatter = new SimpleDateFormat(FORMAT);
+                    Date date = new Date();
+                    String path = MediaStore.Images.Media.insertImage(
+                            getContentResolver(),
+                            (Bitmap) data.getExtras().get(DATA),
+                            "Progress - " + formatter.format(date),
+                            "Progress picture for SetTracker");
+                    Progression progression = new Progression(path, date);
+                    mProgressions.add(progression);
+                    save();
+                    display(progression);
+                }
+            }
+        });
     }
+*/}
+
 }
