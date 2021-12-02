@@ -2,9 +2,12 @@ package ch.zli.aal.buyit.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,6 +25,8 @@ import ch.zli.aal.buyit.adapter.ProductListAdapter;
 import ch.zli.aal.buyit.adapter.StoreListAdapter;
 import ch.zli.aal.buyit.model.Product;
 import ch.zli.aal.buyit.model.Store;
+import ch.zli.aal.buyit.services.ProductService;
+import ch.zli.aal.buyit.services.ShoppingCartService;
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
@@ -30,6 +35,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private List<Store> mStoreList;
     private ProductListAdapter mAdapter;
     private List<Product> showProducts;
+
+    ShoppingCartService shoppingCartService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,5 +90,33 @@ public class ShoppingCartActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ProductActivity.class);
             startActivity(intent);
         });
+    }
+
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            ShoppingCartService.LocalBinder binder = (ShoppingCartService.LocalBinder) service;
+            shoppingCartService = binder.getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, ShoppingCartService.class);
+        bindService(intent, connection, this.BIND_AUTO_CREATE);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
     }
 }

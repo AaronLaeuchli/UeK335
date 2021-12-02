@@ -3,20 +3,25 @@ package ch.zli.aal.buyit.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,12 +31,14 @@ import java.util.stream.Collectors;
 import ch.zli.aal.buyit.R;
 import ch.zli.aal.buyit.model.Product;
 import ch.zli.aal.buyit.model.Store;
+import ch.zli.aal.buyit.services.ProductService;
 
 public class ProductActivity extends AppCompatActivity {
 
     public static final String STORE_LIST = "STORE_LIST";
     private SharedPreferences mPref;
     private List<Store> mStoreList;
+    ProductService productService;
 
 
     @Override
@@ -98,5 +105,32 @@ public class ProductActivity extends AppCompatActivity {
         });
     }
 */}
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            ProductService.LocalBinder binder = (ProductService.LocalBinder) service;
+            productService = binder.getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, ProductService.class);
+        bindService(intent, connection, this.BIND_AUTO_CREATE);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
+    }
 
 }

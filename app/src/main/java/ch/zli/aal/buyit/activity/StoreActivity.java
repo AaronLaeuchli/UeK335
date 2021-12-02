@@ -3,10 +3,14 @@ package ch.zli.aal.buyit.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -37,6 +41,8 @@ import ch.zli.aal.buyit.MainActivity;
 import ch.zli.aal.buyit.R;
 import ch.zli.aal.buyit.adapter.StoreListAdapter;
 import ch.zli.aal.buyit.model.Store;
+import ch.zli.aal.buyit.services.ShoppingCartService;
+import ch.zli.aal.buyit.services.StoreService;
 
 public class StoreActivity extends AppCompatActivity {
 
@@ -48,6 +54,8 @@ public class StoreActivity extends AppCompatActivity {
     private SwipeMenuListView mListView;
     private ArrayList<String> mArrayList=new ArrayList<>();
     private ListDataAdapter mListDataAdapter;
+
+    StoreService storeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +245,33 @@ public class StoreActivity extends AppCompatActivity {
 
                 getResources().getDisplayMetrics());
 
+    }
+
+    private final ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            StoreService.LocalBinder binder = (StoreService.LocalBinder) service;
+            storeService = binder.getService();
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, StoreService.class);
+        bindService(intent, connection, this.BIND_AUTO_CREATE);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
     }
 
 }
